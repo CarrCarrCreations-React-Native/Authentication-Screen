@@ -10,13 +10,23 @@ class App extends Component {
     state = {loggedIn: null};
 
     componentWillMount() {
+
+        const apiKey = process.env['apiKey'];
+        const authDomain = process.env['authDomain'];
+        const databaseURL = process.env['databaseURL'];
+        const projectId = process.env['projectId'];
+        const storageBucket = process.env['storageBucket'];
+        const messagingSenderId = process.env['messagingSenderId'];
+
+        console.log("API KEYS: " + apiKey);
+
         firebase.initializeApp({
-            apiKey: "AIzaSyAJkrr4mq4FTIjwCMmgc5gK-zhohOUhekc",
-            authDomain: "aythentication-80ac0.firebaseapp.com",
-            databaseURL: "https://aythentication-80ac0.firebaseio.com",
-            projectId: "aythentication-80ac0",
-            storageBucket: "aythentication-80ac0.appspot.com",
-            messagingSenderId: "712755268277"
+            apiKey: apiKey,
+            authDomain: authDomain,
+            databaseURL: databaseURL,
+            projectId: projectId,
+            storageBucket: storageBucket,
+            messagingSenderId: messagingSenderId
         });
 
         firebase.auth().onAuthStateChanged((user) => {
@@ -36,7 +46,7 @@ class App extends Component {
             case true:
                 return (
                     <View style={viewStyle}>
-                        <Button>
+                        <Button onPress={() => firebase.auth().signOut()}>
                             Log Out
                         </Button>
                     </View>
